@@ -31,5 +31,33 @@
         echo '</ul>';
     ?>
     
+    <h2>Ejercicio 2</h2>
+    <p>Proporcionar los valores de $a, $b, $c como sigue:</p>
+    <p> $a = "ManejadorSQL"; <br/> $b = 'MySQL'; <br/> $c = &$a;</p>
+    <?php
+        $a = "ManejadorSQL";
+        $b = 'MySQL';
+        $c = &$a; 
+
+        echo '<h3>a. Contenido de las variables</h3>';
+        echo "<p>Variable \$a: " . $a . "</p>";
+        echo "<p>Variable \$b: " . $b . "</p>";
+        echo "<p>Variable \$c: " . $c . "</p>";
+
+        // b. Nuevas asignaciones
+        $a = "PHP server";
+        $b = &$a; 
+
+        echo '<h3>c. Contenido después de las nuevas asignaciones</h3>';
+        echo "<p>Variable \$a: " . $a . "</p>";
+        echo "<p>Variable \$b: " . $b . "</p>";
+        echo "<p>Variable \$c: " . $c . "</p>";
+
+        echo '<h3>d. Descripción de lo que ocurrió</h3>';
+        echo '<p>En el segundo bloque de asignaciones, <b>$a</b> se reasignó a "PHP server". Dado que <b>$c</b> era una referencia a <b>$a</b>, cualquier cambio en <b>$a</b> afecta también a <b>$c</b>, por lo que su valor se actualiza automáticamente. Por otro lado, la variable <b>$b</b> que inicialmente contenía "MySQL", fue reasignada para ser una referencia a <b>$a</b>. Esto hace que ahora también apunte al valor "PHP server".</p>';
+
+        unset($a, $b, $c);
+    ?>
+    
 </body>
 </html>
