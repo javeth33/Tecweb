@@ -31,6 +31,7 @@
         echo '</ul>';
     ?>
     
+
     <h2>Ejercicio 2</h2>
     <p>Proporcionar los valores de $a, $b, $c como sigue:</p>
     <p> $a = "ManejadorSQL"; <br/> $b = 'MySQL'; <br/> $c = &$a;</p>
@@ -57,6 +58,53 @@
         echo '<p>En el segundo bloque de asignaciones, <b>$a</b> se reasignó a "PHP server". Dado que <b>$c</b> era una referencia a <b>$a</b>, cualquier cambio en <b>$a</b> afecta también a <b>$c</b>, por lo que su valor se actualiza automáticamente. Por otro lado, la variable <b>$b</b> que inicialmente contenía "MySQL", fue reasignada para ser una referencia a <b>$a</b>. Esto hace que ahora también apunte al valor "PHP server".</p>';
 
         unset($a, $b, $c);
+    ?>
+
+     <h2>Ejercicio 3</h2>
+    <p>Muestra el contenido de cada variable inmediatamente después de cada asignación, verificando la evolución del tipo de estas variables (imprime todos los componentes de los arreglos):</p>
+    <?php
+        $a = "PHP5";
+        echo "<h3>1. \$a = 'PHP5'</h3>";
+        echo "Tipo y contenido de \$a: ";
+        var_dump($a);
+
+        $z[] = &$a;
+        echo "<h3>2. \$z[] = &\$a</h3>";
+        echo "Tipo y contenido de \$a: ";
+        var_dump($a);
+        echo "Contenido de \$z: ";
+        print_r($z);
+
+        $b = "5a version de PHP";
+        echo "<h3>3. \$b = '5a version de PHP'</h3>";
+        echo "Tipo y contenido de \$b: ";
+        var_dump($b);
+
+        $c = $b * 10;
+        echo "<h3>4. \$c = \$b * 10</h3>";
+        echo "Tipo y contenido de \$c: ";
+        var_dump($c);
+
+        $a .= $b;
+        echo "<h3>5. \$a .= \$b</h3>";
+        echo "Tipo y contenido de \$a: ";
+        var_dump($a);
+        echo "Contenido de \$z : ";
+        print_r($z);
+
+        $b *= $c;
+        echo "<h3>6. \$b *= \$c</h3>";
+        echo "Tipo y contenido de \$b: ";
+        var_dump($b);
+
+        $z[0] = "MySQL";
+        echo "<h3>7. \$z[0] = 'MySQL'</h3>";
+        echo "Tipo y contenido de \$a: ";
+        var_dump($a);
+        echo "Contenido de \$z: ";
+        print_r($z);
+
+        unset($a, $b, $c, $z);
     ?>
     
 </body>
