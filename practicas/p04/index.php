@@ -60,7 +60,7 @@
         unset($a, $b, $c);
     ?>
 
-     <h2>Ejercicio 3</h2>
+    <h2>Ejercicio 3</h2>
     <p>Muestra el contenido de cada variable inmediatamente después de cada asignación, verificando la evolución del tipo de estas variables (imprime todos los componentes de los arreglos):</p>
     <?php
         $a = "PHP5";
@@ -106,7 +106,7 @@
 
     ?>
 
-    <body>
+    
     <h2>Ejercicio 4</h2>
     <p>Lee y muestra los valores de las variables del ejercicio anterior, pero ahora con la ayuda de la matriz GLOBALS o del modificador global de PHP.</p>
     <?php
@@ -118,9 +118,35 @@
         print_r($GLOBALS['z']);
         echo "</p>";
 
-
         unset($a, $b, $c, $z);
     ?>
+
+
+    <h2>Ejercicio 5</h2>
+    <p>Dar el valor de las variables $a, $b, $c al final del siguiente script:</p>
+    <?php
+        $a = "7 personas";
+        $b = (integer) $a; 
+        $a = "9E3";
+        $c = (double) $a; 
+
+        echo '<h3>Valores finales de las variables</h3>';
+        echo '<p>Valor final de $a: ';
+        var_dump($a);
+        echo '</p>';
+
+        echo '<p>Valor final de $b: ';
+        var_dump($b);
+        echo '</p>';
+        
+        echo '<p>Valor final de $c: ';
+        var_dump($c);
+        echo '</p>';
+
+        unset($a, $b, $c);
+    ?>
+
+
 </body>
     
 </body>
