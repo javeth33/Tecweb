@@ -147,6 +147,49 @@
     ?>
 
 
+    <h2>Ejercicio 6</h2>
+    <p>Dar y comprobar el valor booleano de las variables $a, $b, $c, $d, $e y $f y muestralas usando la función var_dump(datos). Después investiga una función de PHP que permita transformar el valor booleano de $c y $e en uno que se pueda mostrar con un echo:</p>
+    <?php
+        $a = "0";
+        $b = "TRUE";
+        $c = FALSE;
+        $d = ($a OR $b);
+        $e = ($a AND $c);
+        $f = ($a XOR $b);
+
+        echo "<h3>Valores booleanos (var_dump)</h3>";
+        echo "<p>var_dump(\$a): ";
+        var_dump((bool)$a);
+        echo "</p>";
+
+        echo "<p>var_dump(\$b): ";
+        var_dump((bool)$b);
+        echo "</p>";
+
+        echo "<p>var_dump(\$c): ";
+        var_dump((bool)$c);
+        echo "</p>";
+
+        echo "<p>var_dump(\$d): ";
+        var_dump((bool)$d);
+        echo "</p>";
+
+        echo "<p>var_dump(\$e): ";
+        var_dump((bool)$e);
+        echo "</p>";
+
+        echo "<p>var_dump(\$f): ";
+        var_dump((bool)$f);
+        echo "</p>";
+
+        echo "<h3>Valores convertidos para mostrar (echo)</h3>";
+        echo "<p><b>\$c: </b>" . ($c ? 'true' : 'false') . "</p>";
+        echo "<p><b>\$e: </b>" . ($e ? 'true' : 'false') . "</p>";
+
+        unset($a, $b, $c, $d, $e, $f);
+    ?>
+
+
 </body>
     
 </body>
