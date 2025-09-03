@@ -124,6 +124,7 @@
 
     <h2>Ejercicio 5</h2>
     <p>Dar el valor de las variables $a, $b, $c al final del siguiente script:</p>
+    <p> $a = "7 personas"; <br/> $b = (integer) $a; <br/> $a = "9E3"; <br\> $c = (double) $a;</p>
     <?php
         $a = "7 personas";
         $b = (integer) $a; 
@@ -187,6 +188,14 @@
         echo "<p><b>\$e: </b>" . ($e ? 'true' : 'false') . "</p>";
 
         unset($a, $b, $c, $d, $e, $f);
+    ?>
+
+    <h2>Ejercicio 7</h2>
+    <p>Usando la variable predefinida $_SERVER, determina lo siguiente:</p>
+    <?php
+        echo "<li><b>a. Versión de Apache y PHP:</b> " . $_SERVER['SERVER_SOFTWARE'] . "</li>";
+        echo "<li><b>b. El nombre del sistema operativo (servidor):</b> " . php_uname('s') . "</li>";
+        echo "<li><b>c. El idioma del navegador (cliente):</b> " . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . "</li>";
     ?>
 
 
