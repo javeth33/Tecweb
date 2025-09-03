@@ -104,8 +104,24 @@
         echo "Contenido de \$z: ";
         print_r($z);
 
+    ?>
+
+    <body>
+    <h2>Ejercicio 4</h2>
+    <p>Lee y muestra los valores de las variables del ejercicio anterior, pero ahora con la ayuda de la matriz GLOBALS o del modificador global de PHP.</p>
+    <?php
+        echo "<h3>Mostrando valores con \$GLOBALS</h3>";
+        echo "<p>Valor de \$a: " . $GLOBALS['a'] . "</p>";
+        echo "<p>Valor de \$b: " . $GLOBALS['b'] . "</p>";
+        echo "<p>Valor de \$c: " . $GLOBALS['c'] . "</p>";
+        echo "<p>Valor de \$z: ";
+        print_r($GLOBALS['z']);
+        echo "</p>";
+
+
         unset($a, $b, $c, $z);
     ?>
+</body>
     
 </body>
 </html>
