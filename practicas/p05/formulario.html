@@ -29,9 +29,6 @@
       <textarea name="..." rows="4" cols="60" maxlength="..." placeholder="No más de 300 caracteres de longitud"></textarea>
     </li> 
     </ul>
-    <p><input type="submit">
-    <input type="reset"> </p>
-    </form>
 
     <h2>Diseña tus Mike personalizados:</h2>
 
@@ -40,21 +37,37 @@
     <p>Color <em>(escoge uno)</em>:</p>
       <ul>
       <li><input type="radio" name="color" value="red">Rojo</li>
-      <li><input type="radio" name="color" value="Azul">Azul</li>
+      <li><input type="radio" name="color" value="Azul" checked>Azul</li>
       <li><input type="radio" name="color" value="Negro">Negro</li>
       <li><input type="radio" name="color" value="Plateado">Plateado</li>
       </ul>
 
     <p>Características <em>(escoge tantas como quieras)</em>:</p>
       <ul>
-      <li>Cordones brillantes</li>
-      <li>Logo metálico</li>
-      <li>Suela luminosa</li>
-      <li>WiFi integrado</li>
+      <li><input type="checkbox" name="features[]" value="laces">Cordones Brillantes</li>
+      <li><input type="checkbox" name="features[]" value="logo" checked>Logo Metálico</li>
+      <li><input type="checkbox" name="features[]" value="Suela">Suela Luminosa</li>
+      <li><input type="checkbox" name="features[]" value="WiFi">WiFi-integrado</li>
       </ul>
 
     <p>Talla</p>
-    <p>Las medidas reflejan el estándar masculino:</p>
+    <p>Las medidas reflejan el estándar masculino:
+      <select size="1">
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+      </select>
+    </p>
+
+    <p><input type="submit">
+    <input type="reset"> </p>
+    </form>
 
   </body>
 </html>
