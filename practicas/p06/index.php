@@ -11,6 +11,13 @@
     <p>Escribir programa para comprobar si un número es un múltiplo de 5 y 7</p>
 
 
+
+    <h2>Ejercicio 2</h2>
+    <p>Crea un programa para la generación repetitiva de 3 números aleatorios hasta obtener una
+    secuencia compuesta por:</p>
+    <?php SecuenciaNumeros(); ?>
+
+
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
         Name: <input type="text" name="name"><br>
