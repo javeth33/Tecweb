@@ -46,5 +46,30 @@
 
         }
 
+        function encontrarMultiplo() {
+            if (isset($_GET['num_dado']) && is_numeric($_GET['num_dado'])) {
+                $dado = $_GET['num_dado'];
+
+                echo "<h3>Resultados del Ejercicio 3 (con while):</h3>";
+                $encontrado = false;
+                while (!$encontrado) {
+                    $numeroAleatorio = rand(1, 100);
+                    if ($numeroAleatorio % $dado == 0) {
+                        echo "<p>El primer número aleatorio que es múltiplo de {$dado} es: {$numeroAleatorio}</p>";
+                        $encontrado = true;
+                    }
+                }
+                
+                echo "<h3>Resultados del Ejercicio 3 (con do-while):</h3>";
+                do {
+                    $numeroAleatorio = rand(1, 100);
+                } while ($numeroAleatorio % $dado != 0);
+                echo "<p>El primer número aleatorio que es múltiplo de {$dado} es: {$numeroAleatorio}</p>";
+                
+            } else {
+                echo "<h3>Por favor, ingrese un número válido en la URL (Ej. ?num_dado=1).</h3>";
+            }
+        }
+
        
     ?>
