@@ -26,7 +26,6 @@
     el valor en cada índice. Es decir:</p>
     <?php crearTablaASCII(); ?>
 
-
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
         Name: <input type="text" name="name"><br>
