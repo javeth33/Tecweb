@@ -20,6 +20,12 @@
     pero que además sea múltiplo de un número dado.</p>
     <?php encontrarMultiplo(); ?>
 
+    <h2>Ejercicio 4</h2>
+    <p>Crear un arreglo cuyos índices van de 97 a 122 y cuyos valores son las letras de la ‘a’
+    a la ‘z’. Usa la función chr(n) que devuelve el caracter cuyo código ASCII es n para poner
+    el valor en cada índice. Es decir:</p>
+    <?php crearTablaASCII(); ?>
+
 
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">

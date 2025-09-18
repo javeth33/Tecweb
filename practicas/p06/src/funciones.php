@@ -71,5 +71,20 @@
             }
         }
 
-       
+        function crearTablaASCII() {
+        $arreglo = [];
+            echo "<h3>Resultados del Ejercicio 4:</h3>";
+
+            for ($i = 97; $i <= 122; $i++) {
+                $arreglo[$i] = chr($i);
+            }
+            
+            echo "<pre>";
+            foreach ($arreglo as $key => $value) {
+                echo "[{$key}] => {$value}\n";
+            }
+            echo "</pre>";
+                
+        }
+
     ?>
