@@ -87,4 +87,36 @@
                 
         }
 
+
+        //ej6
+
+        function parqueVehicular() {
+            return [
+                'UBN6338' => [
+                    'Auto' => [
+                        'marca' => 'HONDA',
+                        'modelo' => 2020,
+                        'tipo' => 'camioneta'
+                    ],
+                    'Propietario' => [
+                        'nombre' => 'Alfonzo Esparza',
+                        'ciudad' => 'Puebla, Pue.',
+                        'direccion' => 'C.U., Jardines de San Manuel'
+                    ]
+                ],
+                // ... Agrega los 14 registros restantes aquí ...
+                'HIJ2829' => [
+                    'Auto' => [
+                        'marca' => 'MERCEDES-BENZ',
+                        'modelo' => 2024,
+                        'tipo' => 'sedan'
+                    ],
+                    'Propietario' => [
+                        'nombre' => 'Javier Luna',
+                        'ciudad' => 'Puebla, Pue.',
+                        'direccion' => 'Residencial San José'
+                    ]
+                ]
+            ];
+        }
     ?>
