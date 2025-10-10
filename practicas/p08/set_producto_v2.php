@@ -79,15 +79,26 @@ if ($resultado === FALSE) {
     mostrarRespuesta("Error de BD", '<p class="error">' . htmlspecialchars($error_msg) . '</p>');
 }
 
+
 if ($resultado->num_rows > 0) {
     $link->close();
     mostrarRespuesta("Producto Duplicado", '<p class="error">❌ El producto con Nombre: **' . htmlspecialchars($nombre) . '**, Marca: **' . htmlspecialchars($marca) . '**, y Modelo: **' . htmlspecialchars($modelo) . '** ya está registrado.</p>');
 }
 
+// QUERY DE INSERCIÓN ANTERIOR (sin nombres de columna y incluyendo 'eliminado' = 0):
+/*
 $sql_insert = "INSERT INTO productos 
                 (`nombre`, `marca`, `modelo`, `precio`, `detalles`, `unidades`, `imagen`, `eliminado`) 
                VALUES 
                 ('{$nombre_esc}', '{$marca_esc}', '{$modelo_esc}', {$precio_val}, '{$detalles_esc}', {$unidades_val}, '{$imagen_esc}', 0)";
+*/
+
+// NUEVA QUERY DE INSERCIÓN (Usando nombres de columna, omitiendo 'id' y 'eliminado' para usar sus defaults)
+$sql_insert = "INSERT INTO productos 
+                (`nombre`, `marca`, `modelo`, `precio`, `detalles`, `unidades`, `imagen`) 
+               VALUES 
+                ('{$nombre_esc}', '{$marca_esc}', '{$modelo_esc}', {$precio_val}, '{$detalles_esc}', {$unidades_val}, '{$imagen_esc}')";
+
 
 if ( $link->query($sql_insert) ) {
     $nuevo_id = $link->insert_id;
