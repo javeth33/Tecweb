@@ -24,7 +24,7 @@
 	if (!empty($tope))
 	{
 		
-		@$link = new mysqli('localhost', 'root', '12345', 'marketzone');
+		@$link = new mysqli('localhost', 'root', '', 'marketzone');
 		if ($link->connect_errno)
 		{
 			die('Falló la conexión: '.$link->connect_error.'<br/>');
