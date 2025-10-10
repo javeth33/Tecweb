@@ -1,11 +1,9 @@
 <?php
-// Configuración de la base de datos
 $db_host = 'localhost';
 $db_user = 'root';
 $db_pass = '';
 $db_name = 'marketzone';
 
-// Función para mostrar el mensaje de respuesta en un documento XHTML (Estándar Strict)
 function mostrarRespuesta($titulo, $mensaje) {
     echo <<<XHTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -35,16 +33,10 @@ XHTML;
     exit;
 }
 
-// ----------------------------------------------------------------------
-// 1. Recolección de datos y Conexión
-// ----------------------------------------------------------------------
-
-// Verificar método POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     mostrarRespuesta("Error de Solicitud", '<p class="error">Método de solicitud no permitido. Use el formulario.</p>');
 }
 
-// Recoger datos (se confía en que el formulario HTML envía todos los campos)
 $nombre   = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
 $marca    = isset($_POST['marca']) ? trim($_POST['marca']) : '';
 $modelo   = isset($_POST['modelo']) ? trim($_POST['modelo']) : '';
@@ -53,31 +45,21 @@ $detalles = isset($_POST['detalles']) ? trim($_POST['detalles']) : '';
 $unidades = isset($_POST['unidades']) ? $_POST['unidades'] : null;
 $imagen   = isset($_POST['imagen']) ? trim($_POST['imagen']) : '';
 
-// Conexión a la base de datos
 @$link = new mysqli($db_host, $db_user, $db_pass, $db_name);	
 
 if ($link->connect_errno) {
     mostrarRespuesta("Error de Conexión a BD", '<p class="error">Falló la conexión: ' . htmlspecialchars($link->connect_error) . '</p>');
 }
 
-// Sanitización de datos (seguridad básica para la práctica)
 $nombre_esc   = $link->real_escape_string($nombre);
 $marca_esc    = $link->real_escape_string($marca);
 $modelo_esc   = $link->real_escape_string($modelo);
 $detalles_esc = $link->real_escape_string($detalles);
 $imagen_esc   = $link->real_escape_string($imagen);
 
-// Conversión de tipos para los valores numéricos
 $precio_val   = (float)$precio;
 $unidades_val = (int)$unidades;
 
-
-// ----------------------------------------------------------------------
-// 2. Validación de existencia (Nombre, Marca, Modelo)
-// ----------------------------------------------------------------------
-// Se valida si la combinación exacta de nombre, marca y modelo ya existe.
-
-// Validar que los campos clave no estén vacíos (aunque el formulario HTML lo controla, es mejor aquí)
 if (empty($nombre_esc) || empty($marca_esc) || empty($modelo_esc)) {
     $link->close();
     mostrarRespuesta("Error de Validación", '<p class="error">❌ Los campos **Nombre**, **Marca** y **Modelo** son clave y no pueden estar vacíos para la validación de unicidad.</p>');
@@ -104,10 +86,6 @@ if ($resultado->num_rows > 0) {
 }
 
 
-// ----------------------------------------------------------------------
-// 3. Inserción del producto (Datos correctos)
-// ----------------------------------------------------------------------
-
 $sql_insert = "INSERT INTO productos 
                 (`nombre`, `marca`, `modelo`, `precio`, `detalles`, `unidades`, `imagen`) 
                VALUES 
@@ -116,7 +94,6 @@ $sql_insert = "INSERT INTO productos
 if ( $link->query($sql_insert) ) {
     $nuevo_id = $link->insert_id;
     
-    // Éxito: Mostrar un resumen de los datos insertados
     $resumen = '
         <p class="success">✅ ¡Producto insertado con éxito!</p>
         <h2>Datos Registrados</h2>
@@ -137,7 +114,6 @@ if ( $link->query($sql_insert) ) {
 }
 else
 {
-	// Error: Mostrar mensaje detallando el error de inserción
 	$error_msg = 'Error de SQL al intentar insertar: ' . $link->error;
     $link->close();
     mostrarRespuesta("Error de Inserción", '<p class="error">❌ El Producto no pudo ser insertado. **ERROR COMETIDO**: ' . htmlspecialchars($error_msg) . '</p>');
