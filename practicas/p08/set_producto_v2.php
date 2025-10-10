@@ -45,7 +45,7 @@ $detalles = isset($_POST['detalles']) ? trim($_POST['detalles']) : '';
 $unidades = isset($_POST['unidades']) ? $_POST['unidades'] : null;
 $imagen   = isset($_POST['imagen']) ? trim($_POST['imagen']) : '';
 
-@$link = new mysqli($db_host, $db_user, $db_pass, $db_name);	
+@$link = new mysqli($db_host, $db_user, $db_pass, $db_name); 	
 
 if ($link->connect_errno) {
     mostrarRespuesta("Error de Conexión a BD", '<p class="error">Falló la conexión: ' . htmlspecialchars($link->connect_error) . '</p>');
@@ -80,16 +80,14 @@ if ($resultado === FALSE) {
 }
 
 if ($resultado->num_rows > 0) {
-    // Error: El producto ya existe
     $link->close();
     mostrarRespuesta("Producto Duplicado", '<p class="error">❌ El producto con Nombre: **' . htmlspecialchars($nombre) . '**, Marca: **' . htmlspecialchars($marca) . '**, y Modelo: **' . htmlspecialchars($modelo) . '** ya está registrado.</p>');
 }
 
-
 $sql_insert = "INSERT INTO productos 
-                (`nombre`, `marca`, `modelo`, `precio`, `detalles`, `unidades`, `imagen`) 
+                (`nombre`, `marca`, `modelo`, `precio`, `detalles`, `unidades`, `imagen`, `eliminado`) 
                VALUES 
-                ('{$nombre_esc}', '{$marca_esc}', '{$modelo_esc}', {$precio_val}, '{$detalles_esc}', {$unidades_val}, '{$imagen_esc}')";
+                ('{$nombre_esc}', '{$marca_esc}', '{$modelo_esc}', {$precio_val}, '{$detalles_esc}', {$unidades_val}, '{$imagen_esc}', 0)";
 
 if ( $link->query($sql_insert) ) {
     $nuevo_id = $link->insert_id;
@@ -106,6 +104,7 @@ if ( $link->query($sql_insert) ) {
             <li><strong>Unidades:</strong> ' . $unidades_val . '</li>
             <li><strong>Detalles:</strong> ' . nl2br(htmlspecialchars($detalles)) . '</li>
             <li><strong>Ruta de Imagen:</strong> ' . htmlspecialchars($imagen) . '</li>
+            <li><strong>Eliminado (Estado):</strong> 0 (No)</li>
         </ul>
     ';
     
@@ -114,7 +113,7 @@ if ( $link->query($sql_insert) ) {
 }
 else
 {
-	$error_msg = 'Error de SQL al intentar insertar: ' . $link->error;
+    $error_msg = 'Error de SQL al intentar insertar: ' . $link->error;
     $link->close();
     mostrarRespuesta("Error de Inserción", '<p class="error">❌ El Producto no pudo ser insertado. **ERROR COMETIDO**: ' . htmlspecialchars($error_msg) . '</p>');
 }
