@@ -1,0 +1,78 @@
+<header>
+  <div class="restaurant-header text-center mb-5">
+    <h1><span class="icon">🍔</span> Cooter's Burger <span class="icon">🍔</span></h1>
+    <p class="slogan">¡Sabor que ruge, estilo que encanta!</p>
+  </div>
+  <button mat-button color="warn" [routerLink]="['/']">Cerrar sesión</button>
+</header>
+
+  <div class="container mt-4">
+    <h2 style="text-align:center; margin-top:24px;">Menú de Hamburguesas</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:24px; justify-content:center; margin:32px 0;">
+      <div *ngFor="let h of hamburguesas" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px #0001; padding:24px; width:260px; text-align:center;">
+        <img [src]="'assets/imagenes/' + h.imagen" class="card-img-top" alt="..">       
+         <h3 style="margin-bottom:12px; color:#7c3aed;">{{h.nombre}}</h3>
+        <p style="color:#444;">{{h.descripcion}}</p>
+        <div style="font-weight:bold; color:#7c3aed; margin-top:8px;">${{h.precio}}</div>
+        <button mat-raised-button color="primary" (click)="agregarAlCarrito(h, 'hamburguesa')" style="margin-top:12px;">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <h2 style="text-align:center; margin-top:24px;">Menú de Hot Dogs</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:24px; justify-content:center; margin:32px 0;">
+      <div *ngFor="let h of hotdogs" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px #0001; padding:24px; width:260px; text-align:center;">
+        <img [src]="'assets/imagenes/' + h.imagen" class="card-img-top" alt="..">       
+          <h3 style="margin-bottom:12px; color:#7c3aed;">{{h.nombre}}</h3>
+        <p style="color:#444;">{{h.descripcion}}</p>
+        <div style="font-weight:bold; color:#7c3aed; margin-top:8px;">${{h.precio}}</div>
+        <button mat-raised-button color="primary" (click)="agregarAlCarrito(h, 'hotdog')" style="margin-top:12px;">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <h2 style="text-align:center; margin-top:24px;">Menú de Entradas</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:24px; justify-content:center; margin:32px 0;">
+      <div *ngFor="let h of entradas" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px #0001; padding:24px; width:260px; text-align:center;">
+        <img [src]="'assets/imagenes/' + h.imagen" class="card-img-top" alt="..">       
+          <h3 style="margin-bottom:12px; color:#7c3aed;">{{h.nombre}}</h3>
+        <p style="color:#444;">{{h.descripcion}}</p>
+        <div style="font-weight:bold; color:#7c3aed; margin-top:8px;">${{h.precio}}</div>
+        <button mat-raised-button color="primary" (click)="agregarAlCarrito(h, 'hotdog')" style="margin-top:12px;">Agregar al carrito</button>
+      </div>
+    </div>
+    
+    <h2 style="text-align:center; margin-top:24px;">Menú de Hot Bebidas</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:24px; justify-content:center; margin:32px 0;">
+      <div *ngFor="let h of bebidas" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px #0001; padding:24px; width:260px; text-align:center;">
+        <img [src]="'assets/imagenes/' + h.imagen" class="card-img-top" alt="..">       
+          <h3 style="margin-bottom:12px; color:#7c3aed;">{{h.nombre}}</h3>
+        <p style="color:#444;">{{h.descripcion}}</p>
+        <div style="font-weight:bold; color:#7c3aed; margin-top:8px;">${{h.precio}}</div>
+        <button mat-raised-button color="primary" (click)="agregarAlCarrito(h, 'hotdog')" style="margin-top:12px;">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <h2 style="text-align:center; margin-top:24px;">Menú de Hot Postres</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:24px; justify-content:center; margin:32px 0;">
+      <div *ngFor="let h of postres" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px #0001; padding:24px; width:260px; text-align:center;">
+        <img [src]="'assets/imagenes/' + h.imagen" class="card-img-top" alt="..">       
+          <h3 style="margin-bottom:12px; color:#7c3aed;">{{h.nombre}}</h3>
+        <p style="color:#444;">{{h.descripcion}}</p>
+        <div style="font-weight:bold; color:#7c3aed; margin-top:8px;">${{h.precio}}</div>
+        <button mat-raised-button color="primary" (click)="agregarAlCarrito(h, 'hotdog')" style="margin-top:12px;">Agregar al carrito</button>
+      </div>
+    </div>
+
+   </div>
+   <!-- Botón flotante para ir al carrito con badge de cantidad -->
+<button mat-fab color="accent"
+        (click)="irAlCarrito()"
+        class="carrito-btn"
+        aria-label="Ver carrito"
+        style="position:fixed;bottom:32px;right:32px;z-index:1000;box-shadow:0 2px 8px #0004;">
+  <mat-icon>shopping_cart</mat-icon>
+  <span *ngIf="carritoCantidad > 0"
+        style="position:absolute;top:-8px;right:-8px;background:#e53e3e;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9rem;min-width:22px;text-align:center;">
+    {{carritoCantidad}}
+  </span>
+</button>
+

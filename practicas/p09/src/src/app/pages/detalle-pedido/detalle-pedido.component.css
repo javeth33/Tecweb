@@ -1,0 +1,28 @@
+.detalle-pedido-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.estado-pendiente { color: orange; }
+.estado-aceptado { color: green; }
+.estado-rechazado { color: red; }
+button {
+  margin-top: 1rem;
+  padding: 0.4rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  background: #1976d2;
+  color: #fff;
+  cursor: pointer;
+}
+button[aria-label]:hover {
+  background: #1565c0;
+}
+@media (max-width: 600px) {
+  .detalle-pedido-container {
+    padding: 0.5rem;
+  }
+}

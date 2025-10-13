@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Nuevo Producto - Electrónicos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select { /* Añadido select */
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        .required::after {
+            content: " *";
+            color: red;
+        }
+        .error-message { /* Estilo para mensajes de error */
+            color: red;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none; /* Oculto por defecto */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Registrar Nuevo Producto Electrónico</h1>
+
+        <form action="http://localhost/tecweb/practicas/P08/set_producto_v2.php" method="POST" onsubmit="return validarFormulario();"> 
+            
+            <label for="nombre" class="required">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" maxlength="100" required>
+            <p id="error-nombre" class="error-message">a. Requerido, máximo 100 caracteres.</p>
+            
+            <label for="marca" class="required">Marca:</label>
+            <select id="marca" name="marca" required> <option value="">-- Seleccione una Marca --</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Apple">Apple</option>
+                <option value="Xiaomi">Xiaomi</option>
+                <option value="Sony">Sony</option>
+                <option value="Logitech">Logitech</option>
+                <option value="Dell">Dell</option>
+                <option value="Otro">Otra Marca</option>
+            </select>
+            <p id="error-marca" class="error-message">b. Debe seleccionar una marca de la lista.</p>
+
+            <label for="modelo" class="required">Modelo:</label>
+            <input type="text" id="modelo" name="modelo" maxlength="25" required>
+            <p id="error-modelo" class="error-message">c. Requerido, alfanumérico, máximo 25 caracteres.</p>
+            
+            <label for="precio" class="required">Precio ($):</label>
+            <input type="number" id="precio" name="precio" step="0.01" min="0" required value="100.00">
+            <p id="error-precio" class="error-message">d. Requerido, debe ser mayor a $99.99.</p>
+
+            <label for="detalles">Detalles:</label>
+            <textarea id="detalles" name="detalles" rows="4" maxlength="250"></textarea>
+            <p id="error-detalles" class="error-message">e. Opcional, máximo 250 caracteres.</p>
+            
+            <label for="unidades" class="required">Unidades en Stock:</label>
+            <input type="number" id="unidades" name="unidades" min="0" required value="1">
+            <p id="error-unidades" class="error-message">f. Requerido, debe ser $\ge 0$.</p>
+
+            <label for="imagen">Ruta de Imagen:</label>
+            <input type="text" id="imagen" name="imagen" maxlength="100" placeholder="ej: img/nombre_archivo.jpg" onblur="setDefaultImage(this)"> 
+            <p id="error-imagen" class="error-message">g. Opcional, se usará una por defecto si está vacío.</p>
+
+            <input type="submit" value="Registrar Producto">
+            
+        </form>
+    </div>
+
+<script>
+
+    function setDefaultImage(input) {
+        if (input.value.trim() === "") {
+            // Ruta de imagen por defecto
+            input.value = "img/imagen_no_disponible.png"; 
+        }
+    }
+
+    function validarFormulario() {
+        document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+        let isValid = true;
+        
+        // Expresión regular para verificar si el texto es alfanumérico (letras, números, espacios)
+        const alphanumericRegex = /^[a-zA-Z0-9\s]*$/; 
+
+        const nombre = document.getElementById('nombre').value.trim();
+        if (nombre === '' || nombre.length > 100) {
+            document.getElementById('error-nombre').style.display = 'block';
+            isValid = false;
+        }
+
+        const marca = document.getElementById('marca').value;
+        if (marca === '') { // Si el valor es la opción por defecto vacía
+            document.getElementById('error-marca').style.display = 'block';
+            isValid = false;
+        }
+
+        const modelo = document.getElementById('modelo').value.trim();
+        if (modelo === '' || modelo.length > 25 || !alphanumericRegex.test(modelo)) {
+            document.getElementById('error-modelo').style.display = 'block';
+            isValid = false;
+        }
+
+        const precio = parseFloat(document.getElementById('precio').value);
+        if (isNaN(precio) || precio <= 99.99) {
+            document.getElementById('error-precio').style.display = 'block';
+            isValid = false;
+        }
+
+        const detalles = document.getElementById('detalles').value;
+        if (detalles.length > 250) { 
+            document.getElementById('error-detalles').style.display = 'block';
+            isValid = false;
+        }
+
+        const unidades = parseInt(document.getElementById('unidades').value);
+        if (isNaN(unidades) || unidades < 0) {
+             document.getElementById('error-unidades').style.display = 'block';
+            isValid = false;
+        }
+        
+        setDefaultImage(document.getElementById('imagen'));
+
+
+        if (!isValid) {
+            alert("Por favor, corrige los errores en el formulario.");
+        }
+        
+        return isValid; 
+    }
+
+</script>
+
+</body>
+</html>

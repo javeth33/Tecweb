@@ -1,0 +1,25 @@
+<div class="detalle-pedido-container">
+  <h1>Detalle del Pedido</h1>
+  <div *ngIf="pedido">
+    <p><strong>ID:</strong> {{ pedido.id }}</p>
+    <p><strong>Cliente:</strong> {{ pedido.cliente }}</p>
+    <p><strong>Estado:</strong>
+      <span [ngClass]="{
+        'estado-pendiente': pedido.estado === 'pendiente',
+        'estado-aceptado': pedido.estado === 'aceptado',
+        'estado-rechazado': pedido.estado === 'rechazado'
+      }">{{ pedido.estado | titlecase }}</span>
+    </p>
+    <p><strong>Total:</strong> {{ pedido.total | currency:'MXN' }}</p>
+    <h3>Productos</h3>
+    <ul>
+      <li *ngFor="let prod of pedido.productos">
+        {{ prod.nombre }} (x{{ prod.cantidad }})
+      </li>
+    </ul>
+    <button (click)="volver()" aria-label="Volver a la lista">Volver</button>
+  </div>
+  <div *ngIf="!pedido">
+    <p>Cargando detalles...</p>
+  </div>
+</div>

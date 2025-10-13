@@ -1,0 +1,18 @@
+<div class="carrito-container">
+  <h2>Carrito</h2>
+  <div *ngIf="productos().length === 0">No hay productos en el carrito.</div>
+  <div *ngFor="let producto of productos(); let i = index" class="producto">
+    <span class="info">{{producto.nombre}} - {{producto.precio ? '$' + producto.precio : ''}}</span>
+    <button (click)="eliminarProducto(i)">Eliminar</button>
+  </div>
+  <button mat-raised-button color="primary"
+          (click)="mensaje = '¡Su pedido se ha realizado correctamente!'; limpiarCarrito()"
+          [disabled]="productos().length === 0">
+    Confirmar pedido
+  </button>
+  <button class="btn-limpiar" (click)="limpiarCarrito()" *ngIf="productos().length > 0">Limpiar carrito</button>
+  <!-- Cambia el routerLink para probar con minúsculas si tu ruta es 'menu' en vez de 'Menu' -->
+  <button mat-button color="accent" (click)="volverAlMenu()">Volver al menú</button>
+  <button mat-button color="warn" [routerLink]="['/']">Cerrar sesión</button>
+  <div *ngIf="mensaje" style="margin-top:16px;color:green;">{{mensaje}}</div>
+</div>

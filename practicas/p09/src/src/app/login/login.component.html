@@ -1,0 +1,21 @@
+<!-- ...existing code... -->
+<div style="max-width:400px;margin:40px auto;padding:32px;border-radius:16px;box-shadow:0 2px 16px #0002;background:#fff;text-align:center;">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTms-ih7GvpfssgoG97nCa7Cblg-QtIUOjboA&s" alt="cooters" style="width:120px;margin-bottom:24px;">
+  <h2 style="font-family:'Segoe UI',sans-serif;font-weight:700;color:#7c3aed;margin-bottom:24px;">Iniciar sesión</h2>
+  <form (ngSubmit)="login()" style="text-align:left;">
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Usuario</mat-label>
+      <input matInput [(ngModel)]="usuario" name="usuario" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [(ngModel)]="password" name="password" type="password" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" style="width: 100%;margin-top:12px;">Entrar</button>
+  </form>
+  <div *ngIf="mensaje" style="color:#e53e3e; margin: 16px 0 0 0;">{{mensaje}}</div>
+  <button mat-button type="button" (click)="irARegistro()" style="width: 100%; margin-top: 16px;">
+    ¿No tienes cuenta? Regístrate aquí
+  </button>
+</div>
+<!-- ...existing code... -->

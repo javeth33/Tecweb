@@ -1,0 +1,179 @@
+:root {
+  --color-principal: #ff5722;
+  --color-secundario: #ffe0b2;
+}
+
+body {
+  background-color: var(--color-secundario);
+  color: #000;
+  font-family: Arial, sans-serif;
+}
+
+button, .btn {
+  background-color: var(--color-principal);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover, .btn:hover {
+  opacity: 0.9;
+}
+
+header, nav {
+  background-color: var(--color-principal);
+  color: white;
+  padding: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-principal);
+}
+
+:root {
+  --color-principal: #ff5722;
+  --color-secundario: #ffe0b2;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-lateral, .navbar, header, footer {
+  background-color: var(--color-principal) !important;
+  color: #ffe0b2 !important; 
+}
+
+mat-card, mat-form-field, .mat-mdc-text-field-wrapper, .mat-mdc-form-field-flex {
+  background-color: #fff !important; /* Fondo blanco para destacar el recuadro */
+  color: #ff5722 !important;
+  box-shadow: 0 2px 8px rgba(241, 197, 102, 0.08); 
+  border-radius: 8px;
+}
+
+input, label, .mat-mdc-input-element {
+  color: #ffe0b2 !important;
+  background-color: #ffe0b2 !important; /* Fondo blanco para el input */
+  border: 1px solid #ccc !important;
+}
+
+label {
+  color: var(--color-principal) !important;
+  background-color: #ffe0b2 !important;
+}
+
+/* Centrar y agrandar el cuadro de inicio de sesión */
+.login-container, .login-card, mat-card.login-card {
+  max-width: 480px;
+  width: 98%;
+  min-height: 420px;
+  margin: 80px auto 0 auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  background: #fff !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  color: #222 !important;
+}
+
+/* Espaciado entre campos y botones */
+.login-container form, .login-card form, mat-card.login-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+mat-form-field, .mat-mdc-form-field, input {
+  width: 100%;
+  margin-bottom: 1.2rem !important;
+  display: block;
+}
+
+input, .mat-mdc-input-element {
+  color: #222 !important; /* Letras oscuras */
+  background-color: #ffe0b2 !important; /* Fondo suave */
+  border: 1px solid #ff5722 !important;
+  border-radius: 6px;
+  padding: 0.7rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+label, .mat-mdc-floating-label {
+  color: #b23c17 !important; /* Un tono más oscuro del principal para mejor visibilidad */
+  font-weight: 500;
+  background: transparent !important;
+  position: static !important; /* Evita que se encimen sobre el input */
+  transform: none !important;  /* Elimina animaciones flotantes */
+  left: 0 !important;
+  top: 0 !important;
+  margin-bottom: 0.3rem;
+  font-size: 1rem !important;
+  pointer-events: auto !important;
+}
+
+button, .btn, .mat-mdc-raised-button {
+  background-color: #ff5722 !important;
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+
+button:hover, .btn:hover, .mat-mdc-raised-button:hover {
+  background-color: #e64a19 !important;
+  opacity: 1;
+}
+
+/* Centrar el botón de inicio de sesión */
+.login-container button, .login-card button, mat-card.login-card button {
+  align-self: center;
+  width: 70%;
+  margin-top: 1.2rem;
+}
+
+/* Centrar el título de inicio de sesión */
+.login-container h1, .login-card h1, mat-card.login-card h1 {
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-bottom: 2rem;
+  color: #ff5722;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Mejorar contraste de enlaces y elementos de menú */
+.menu-lateral a, .navbar a, nav a, .menu-lateral .menu-item, .navbar .menu-item {
+  color: #222 !important;           /* Letras oscuras para mejor contraste */
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.menu-lateral a:hover, .navbar a:hover, nav a:hover, 
+.menu-lateral .menu-item:hover, .navbar .menu-item:hover {
+  color: #ff5722 !important;        /* Color principal al pasar el mouse */
+  background: #ffe0b2 !important;   /* Fondo suave al pasar el mouse */
+  border-radius: 4px;
+}
+
+/* Ajuste para evitar encimarse en pantallas pequeñas */
+@media (max-width: 500px) {
+  .login-container, .login-card, mat-card.login-card {
+    padding: 1rem;
+    max-width: 98vw;
+  }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

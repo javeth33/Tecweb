@@ -1,0 +1,66 @@
+<mat-card>
+  <mat-card-title>Gestión de Pedidos</mat-card-title>
+  <mat-card-content>
+    <div class="pedidos-container">
+      <div class="filtros">
+        <label for="estado">Filtrar por estado:</label>
+        <select id="estado" [(ngModel)]="filtroEstado" (change)="filtrarPedidos()">
+          <option value="">Todos</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="aceptado">Aceptado</option>
+          <option value="rechazado">Rechazado</option>
+        </select>
+      </div>
+      <div *ngIf="mensaje" class="mensaje-confirmacion">{{ mensaje }}</div>
+      <div class="tabla-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Estado</th>
+              <th>Total</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pedido of pedidosFiltrados">
+              <td>{{ pedido.id }}</td>
+              <td>{{ pedido.cliente }}</td>
+              <td>
+                <span [ngClass]="{
+                  'estado-pendiente': pedido.estado === 'pendiente',
+                  'estado-aceptado': pedido.estado === 'aceptado',
+                  'estado-rechazado': pedido.estado === 'rechazado'
+                }">{{ pedido.estado | titlecase }}</span>
+              </td>
+              <td>{{ pedido.total | currency:'MXN' }}</td>
+              <td>
+                <button (click)="verDetalle(pedido.id)" aria-label="Ver detalles">Detalles</button>
+                <button *ngIf="pedido.estado === 'pendiente'" (click)="aceptarPedido(pedido.id)" aria-label="Aceptar pedido">Aceptar</button>
+                <button *ngIf="pedido.estado === 'pendiente'" (click)="rechazarPedido(pedido.id)" aria-label="Rechazar pedido">Rechazar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="mostrarModal" class="modal">
+        <div class="modal-content">
+          <h2>Detalle del Pedido</h2>
+          <div *ngIf="pedidoDetalle">
+            <p><strong>Cliente:</strong> {{ pedidoDetalle.cliente }}</p>
+            <p><strong>Productos:</strong></p>
+            <ul>
+              <li *ngFor="let prod of pedidoDetalle.productos">
+                {{ prod.nombre }} (x{{ prod.cantidad }})
+              </li>
+            </ul>
+            <p><strong>Total:</strong> {{ pedidoDetalle.total | currency:'MXN' }}</p>
+            <p><strong>Estado:</strong> {{ pedidoDetalle.estado | titlecase }}</p>
+          </div>
+          <button (click)="cerrarModal()" aria-label="Cerrar detalles">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
