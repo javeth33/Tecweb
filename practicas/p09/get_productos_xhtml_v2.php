@@ -85,7 +85,7 @@
 								<td><?= $producto['unidades'] ?></td>
 								<td><?= $producto['detalles'] ?></td>
 								<td><img src="<?= $producto['imagen'] ?>" alt="Imagen de <?= $producto['nombre'] ?>" style="max-height: 50px;" /></td>
-								<td><a href="modificar_producto.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-info">Editar</a></td>
+								<td><a href="formulario_productos_v2.php?id=<?= $producto['id'] ?>" class="btn btn-sm btn-info">Editar</a></td>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>

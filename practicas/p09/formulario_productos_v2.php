@@ -1,9 +1,58 @@
+<?php
+// Configuración de la Base de Datos
+$db_host = 'localhost';
+$db_user = 'root'; 
+$db_pass = '';     
+$db_name = 'marketzone';
+
+$producto = null; 
+
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id_producto = (int)$_GET['id'];
+    
+    @$link = new mysqli($db_host, $db_user, $db_pass, $db_name);
+    if ($link->connect_errno) {
+        die('Falló la conexión: ' . $link->connect_error);
+    }
+
+    $sql = "SELECT * FROM productos WHERE id = ?";
+    $stmt = $link->prepare($sql);
+    
+    if ($stmt) {
+        $stmt->bind_param("i", $id_producto);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 1) {
+            $producto = $result->fetch_assoc();
+            if (isset($producto['detalles'])) {
+                $producto['detalles'] = utf8_decode($producto['detalles']);
+            }
+        }
+        $stmt->close();
+    }
+    $link->close();
+}
+
+$id_val = $producto['id'] ?? '';
+$nombre_val = $producto['nombre'] ?? '';
+$marca_val = $producto['marca'] ?? '';
+$modelo_val = $producto['modelo'] ?? '';
+$precio_val = $producto['precio'] ?? '100.00';
+$detalles_val = $producto['detalles'] ?? '';
+$unidades_val = $producto['unidades'] ?? '1';
+$imagen_val = $producto['imagen'] ?? '';
+
+$titulo = $producto ? 'Editar Producto (ID: ' . $id_val . ')' : 'Registrar Nuevo Producto Electrónico';
+$submit_text = $producto ? 'Guardar Cambios' : 'Registrar Producto';
+$form_action = $producto ? 'update_producto.php' : 'set_producto_v2.php'; 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Nuevo Producto - Electrónicos</title>
+    <title><?= $titulo ?></title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,68 +104,71 @@
             content: " *";
             color: red;
         }
-        .error-message { /* Estilo para mensajes de error */
+        .error-message { 
             color: red;
             font-size: 0.9em;
             margin-top: -10px;
             margin-bottom: 10px;
-            display: none; /* Oculto por defecto */
+            display: none; 
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Registrar Nuevo Producto Electrónico</h1>
+        <h1><?= $titulo ?></h1>
 
-        <form action="http://localhost/tecweb/practicas/P08/set_producto_v2.php" method="POST" onsubmit="return validarFormulario();"> 
+        <form action="<?= $form_action ?>" method="POST" onsubmit="return validarFormulario();"> 
             
+            <?php if ($producto) : ?>
+                <input type="hidden" name="id" value="<?= $id_val ?>">
+            <?php endif; ?>
+
             <label for="nombre" class="required">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" maxlength="100" required>
+            <input type="text" id="nombre" name="nombre" maxlength="100" required value="<?= htmlspecialchars($nombre_val) ?>">
             <p id="error-nombre" class="error-message">a. Requerido, máximo 100 caracteres.</p>
             
             <label for="marca" class="required">Marca:</label>
-            <select id="marca" name="marca" required> <option value="">-- Seleccione una Marca --</option>
-                <option value="Samsung">Samsung</option>
-                <option value="Apple">Apple</option>
-                <option value="Xiaomi">Xiaomi</option>
-                <option value="Sony">Sony</option>
-                <option value="Logitech">Logitech</option>
-                <option value="Dell">Dell</option>
-                <option value="Otro">Otra Marca</option>
+            <select id="marca" name="marca" required> 
+                <option value="">-- Seleccione una Marca --</option>
+                <option value="Samsung" <?= ($marca_val === 'Samsung') ? 'selected' : '' ?>>Samsung</option>
+                <option value="Apple" <?= ($marca_val === 'Apple') ? 'selected' : '' ?>>Apple</option>
+                <option value="Xiaomi" <?= ($marca_val === 'Xiaomi') ? 'selected' : '' ?>>Xiaomi</option>
+                <option value="Sony" <?= ($marca_val === 'Sony') ? 'selected' : '' ?>>Sony</option>
+                <option value="Logitech" <?= ($marca_val === 'Logitech') ? 'selected' : '' ?>>Logitech</option>
+                <option value="Dell" <?= ($marca_val === 'Dell') ? 'selected' : '' ?>>Dell</option>
+                <option value="Otro" <?= ($marca_val === 'Otro') ? 'selected' : '' ?>>Otra Marca</option>
             </select>
             <p id="error-marca" class="error-message">b. Debe seleccionar una marca de la lista.</p>
 
             <label for="modelo" class="required">Modelo:</label>
-            <input type="text" id="modelo" name="modelo" maxlength="25" required>
+            <input type="text" id="modelo" name="modelo" maxlength="25" required value="<?= htmlspecialchars($modelo_val) ?>">
             <p id="error-modelo" class="error-message">c. Requerido, alfanumérico, máximo 25 caracteres.</p>
             
             <label for="precio" class="required">Precio ($):</label>
-            <input type="number" id="precio" name="precio" step="0.01" min="0" required value="100.00">
+            <input type="number" id="precio" name="precio" step="0.01" min="0" required value="<?= $precio_val ?>">
             <p id="error-precio" class="error-message">d. Requerido, debe ser mayor a $99.99.</p>
 
             <label for="detalles">Detalles:</label>
-            <textarea id="detalles" name="detalles" rows="4" maxlength="250"></textarea>
+            <textarea id="detalles" name="detalles" rows="4" maxlength="250"><?= htmlspecialchars($detalles_val) ?></textarea>
             <p id="error-detalles" class="error-message">e. Opcional, máximo 250 caracteres.</p>
             
             <label for="unidades" class="required">Unidades en Stock:</label>
-            <input type="number" id="unidades" name="unidades" min="0" required value="1">
+            <input type="number" id="unidades" name="unidades" min="0" required value="<?= $unidades_val ?>">
             <p id="error-unidades" class="error-message">f. Requerido, debe ser $\ge 0$.</p>
 
             <label for="imagen">Ruta de Imagen:</label>
-            <input type="text" id="imagen" name="imagen" maxlength="100" placeholder="ej: img/nombre_archivo.jpg" onblur="setDefaultImage(this)"> 
+            <input type="text" id="imagen" name="imagen" maxlength="100" placeholder="ej: img/nombre_archivo.jpg" onblur="setDefaultImage(this)" value="<?= htmlspecialchars($imagen_val) ?>"> 
             <p id="error-imagen" class="error-message">g. Opcional, se usará una por defecto si está vacío.</p>
 
-            <input type="submit" value="Registrar Producto">
+            <input type="submit" value="<?= $submit_text ?>">
             
         </form>
     </div>
 
 <script>
-
     function setDefaultImage(input) {
         if (input.value.trim() === "") {
-            // Ruta de imagen por defecto
             input.value = "img/imagen_no_disponible.png"; 
         }
     }
@@ -124,8 +176,6 @@
     function validarFormulario() {
         document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
         let isValid = true;
-        
-        // Expresión regular para verificar si el texto es alfanumérico (letras, números, espacios)
         const alphanumericRegex = /^[a-zA-Z0-9\s]*$/; 
 
         const nombre = document.getElementById('nombre').value.trim();
@@ -135,7 +185,7 @@
         }
 
         const marca = document.getElementById('marca').value;
-        if (marca === '') { // Si el valor es la opción por defecto vacía
+        if (marca === '') {
             document.getElementById('error-marca').style.display = 'block';
             isValid = false;
         }
@@ -165,7 +215,6 @@
         }
         
         setDefaultImage(document.getElementById('imagen'));
-
 
         if (!isValid) {
             alert("Por favor, corrige los errores en el formulario.");
