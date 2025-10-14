@@ -1,9 +1,5 @@
 <?php
-/**
- * get_productos_vigentes_v2.php
- * Muestra en un documento XHTML todos los productos que no estén "eliminados" (eliminado = 0),
- * agregando una columna para la acción de modificar.
- */
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">

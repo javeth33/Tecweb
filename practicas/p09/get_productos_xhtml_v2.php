@@ -1,10 +1,5 @@
 <?php
-/**
- * get_productos_xhtml_v2.php
- * Recibe el parámetro "tope" y muestra en un documento XHTML
- * todos los productos con un número de unidades menor o igual al especificado,
- * agregando una columna para la acción de modificar.
- */
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
