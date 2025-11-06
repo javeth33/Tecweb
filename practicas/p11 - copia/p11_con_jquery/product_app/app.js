@@ -23,9 +23,29 @@ $(document).ready(function() {
     $('#product-form').on('submit', agregarProducto);
 
     // Listeners para validación en tiempo real al perder el foco (blur)
-    $('#name, #precio, #unidades, #modelo, #marca, #detalles').on('blur', function() {
+    $('#precio, #unidades, #modelo, #marca, #detalles').on('blur', function() {
         validateField($(this));
     });
+
+    // Listener especial para el nombre que incluye validación asíncrona
+    $('#name').on('blur', function() {
+        validateField($(this));
+    });
+
+    // NUEVO: Listener para validación de nombre de producto en tiempo real (con debounce)
+    let nameTypingTimer;
+    const doneTypingInterval = 500; // 500ms de espera
+    $('#name').on('input', function() {
+        clearTimeout(nameTypingTimer);
+        const field = $(this);
+        // Primero, se limpian los mensajes de validaciones previas
+        field.removeClass('is-invalid is-valid');
+        
+        nameTypingTimer = setTimeout(() => {
+            validateField(field); // Ejecuta la validación después de que el usuario deja de teclear
+        }, doneTypingInterval);
+    });
+
 
     // Listeners delegados para botones en la tabla
     $("#products").on('click', '.product-delete', eliminarProducto);
@@ -350,12 +370,43 @@ function validateField(field) {
 
     // Remover estado de error/éxito previo
     field.removeClass('is-invalid is-valid');
+    field.next('.invalid-feedback').text(''); // Limpiar mensaje
+
+    // Función para mostrar el error
+    const showError = (msg) => {
+        field.addClass('is-invalid');
+        field.next('.invalid-feedback').text(msg);
+    };
 
     switch (id) {
         case 'name':
-            if (!value || value.trim() === '') message = 'El nombre es requerido.';
-            else if (value.length > 100) message = 'El nombre debe tener 100 caracteres o menos.';
-            break;
+            if (!value || value.trim() === '') {
+                showError('El nombre es requerido.');
+                return false;
+            }
+            if (value.length > 100) {
+                showError('El nombre debe tener 100 caracteres o menos.');
+                return false;
+            }
+            
+            // NUEVO: Verificación asíncrona de existencia del nombre
+            const productId = $('#productId').val();
+            $.ajax({
+                url: './backend/product-check-name.php', // Script de backend a crear
+                type: 'POST',
+                data: { nombre: value, id: productId },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.exists) {
+                        showError('Este nombre de producto ya existe.');
+                    } else {
+                        field.addClass('is-valid');
+                    }
+                }
+            });
+            // La validación asíncrona no retorna un estado inmediato
+            return true; // Se asume válido hasta que el servidor responda
+
         case 'precio':
             if (value === '') message = 'El precio es requerido.';
             else if (isNaN(value) || Number(value) <= 99.99) message = 'El precio debe ser un número mayor a 99.99.';
@@ -378,8 +429,7 @@ function validateField(field) {
     }
 
     if (message) {
-        field.addClass('is-invalid');
-        field.next('.invalid-feedback').text(message);
+        showError(message);
         return false; // Inválido
     } else {
         // Si no hay mensaje de error, el campo es válido
