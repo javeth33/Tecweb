@@ -323,7 +323,7 @@ function resetForm() {
     $('#productId').val('');
 
     // Eliminar clases de validación de todos los campos
-    $('#product-form .form-control').removeClass('is-invalid');
+    $('#product-form .form-control').removeClass('is-invalid is-valid');
 
     // Restaurar los valores base en los campos
     /*
@@ -348,8 +348,8 @@ function validateField(field) {
     const value = field.val();
     let message = '';
 
-    // Remover estado de error previo
-    field.removeClass('is-invalid');
+    // Remover estado de error/éxito previo
+    field.removeClass('is-invalid is-valid');
 
     switch (id) {
         case 'name':
@@ -381,7 +381,9 @@ function validateField(field) {
         field.addClass('is-invalid');
         field.next('.invalid-feedback').text(message);
         return false; // Inválido
+    } else {
+        // Si no hay mensaje de error, el campo es válido
+        field.addClass('is-valid');
+        return true; // Válido
     }
-    
-    return true; // Válido
 }
