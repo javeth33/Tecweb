@@ -1,7 +1,8 @@
 <?php
-namespace TECWEB\MYAPI;
+namespace TECWEB\MYAPI\Core;
 abstract class DataBase {
     protected $conexion;
+
     public function __construct($user, $pass, $db) {
         $this->conexion = @mysqli_connect(
             'localhost',
@@ -14,6 +15,14 @@ abstract class DataBase {
          */
         if(!$this->conexion) {
             die('¡Base de datos NO conectada!');
+        }
+        
+        $this->conexion->set_charset("utf8"); 
+    }
+
+    public function __destruct() {
+        if ($this->conexion) {
+            $this->conexion->close();
         }
     }
 }
