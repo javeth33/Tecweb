@@ -14,7 +14,7 @@ class Delete extends DataBase {
     /**
      * Lógica de product-delete.php
      */
-    publicD  function delete($id) {
+    public  function delete($id) {
         $data = [
             'status'  => 'error',
             'message' => 'La consulta falló'

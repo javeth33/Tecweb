@@ -3,7 +3,7 @@ namespace TECWEB\MYAPI\Create;
 
 use TECWEB\MYAPI\Core\DataBase; 
 
-class Creater extends DataBase { 
+class Create extends DataBase { 
  
     private $response = array();
 
