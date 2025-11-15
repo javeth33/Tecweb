@@ -1,17 +1,15 @@
 <?php
-    // b. Usar el namespace y la inclusión
-    use TECWEB\MYAPI\Products as Products;
-    require_once __DIR__ . '/myapi/Products.php';
+    require_once __DIR__ . '/vendor/autoload.php';
 
-    // c. Crear una instancia de la clase Products
-    $prodObj = new Products('marketzone', 'root', '');
+    // Usar el namespace de la clase Read
+    use TECWEB\MYAPI\Read\Read;
 
-    // d. Usar el método correcto
+    $prodObj = new Read('marketzone', 'root', '');
+
     if( isset($_GET['search']) ) {
         $search = $_GET['search'];
         $prodObj->search($search);
     }
     
-    // e. Usar getData() para devolver el JSON
     echo $prodObj->getData();
 ?>

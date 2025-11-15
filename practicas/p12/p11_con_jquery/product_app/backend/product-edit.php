@@ -1,15 +1,15 @@
 <?php
-    // b. Usar el namespace y la inclusión
-    use TECWEB\MYAPI\Products as Products;
-    require_once __DIR__ . '/myapi/Products.php';
+    require_once __DIR__ . '/vendor/autoload.php';
 
-    // c. Crear una instancia de la clase Products
-    $prodObj = new Products('marketzone', 'root', '');
+    // Usar el namespace de la clase Update
+    use TECWEB\MYAPI\Update\Update;
 
-    // d. Usar el método correcto
+    // 3. Crear instancia
+    $prodObj = new Update('marketzone', 'root', '');
+
+    // 4. Usar el método 'edit' como pide el UML
     $producto = file_get_contents('php://input');
-    $prodObj->update($producto);
+    $prodObj->edit($producto);
 
-    // e. Usar getData() para devolver el JSON
     echo $prodObj->getData();
 ?>

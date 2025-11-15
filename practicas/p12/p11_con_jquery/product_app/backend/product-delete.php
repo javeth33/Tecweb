@@ -1,17 +1,15 @@
 <?php
-    // b. Usar el namespace y la inclusión
-    use TECWEB\MYAPI\Products as Products;
-    require_once __DIR__ . '/myapi/Products.php';
+    require_once __DIR__ . '/vendor/autoload.php';
 
-    // c. Crear una instancia de la clase Products
-    $prodObj = new Products('marketzone', 'root', '');
+    // Usar el namespace de la clase Delete
+    use TECWEB\MYAPI\Delete\Delete;
 
-    // d. Usar el método correcto
+    $prodObj = new Delete('marketzone', 'root', '');
+
     if( isset($_GET['id']) ) {
         $id = $_GET['id'];
         $prodObj->delete($id);
     }
     
-    // e. Usar getData() para devolver el JSON
     echo $prodObj->getData();
 ?>
